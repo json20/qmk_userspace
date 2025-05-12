@@ -7,7 +7,6 @@ enum layer_number {
   _ADJUST,
 };
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -140,11 +139,10 @@ bool oled_task_user(void) {
 #endif // OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
 #ifdef OLED_ENABLE
+  if (record->event.pressed) {
     set_keylog(keycode, record);
-#endif
-    // set_timelog();
   }
-  return true;
+#endif
+  return true;  // Let QMK handle all keycodes normally
 }
