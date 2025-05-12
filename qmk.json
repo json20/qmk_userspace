@@ -1,6 +1,7 @@
 {
-    "userspace_version": "1.0",
+    "userspace_version": "1.1",
     "build_targets": [
-        ["keychron/v3/ansi", "custom_keymap"]
+        ["keychron/v3/ansi", "custom_keymap"],
+        ["lily58/rev1", "lily58_via"]
     ]
 }
