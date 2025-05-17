@@ -72,6 +72,23 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
+const char *my_read_layer_state(void) {
+  switch (get_highest_layer(layer_state)) {
+    case _QWERTY:
+      return "Layer: QWERTY";
+    case _SYMBOLS:
+      return "Layer: SYMBOLS";
+    case _LOWER:
+      return "Layer: LOWER";
+    case _RAISE:
+      return "Layer: RAISE";
+    case _ADJUST:
+      return "Layer: ADJUST";
+    default:
+      return "Layer: ???";
+  }
+}
+
 //SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
 #ifdef OLED_ENABLE
 
@@ -96,7 +113,7 @@ const char *read_keylogs(void);
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
+    oled_write_ln(my_read_layer_state(), false);
     oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
