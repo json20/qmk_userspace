@@ -1,0 +1,134 @@
+#include QMK_KEYBOARD_H
+
+enum layer_number {
+  _QWERTY = 0,
+  _SYMBOLS,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+/* QWERTY
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  =   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |LCTRL |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   \  |  '   |
+ * |------+------+------+------+------+------| Lower       Raise  |------+------+------+------+------+------|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   | LAlt | LGUI |  BackSp  | /Enter  /       \Space \  |   ;  |  | RGUI |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+[_QWERTY] = LAYOUT(
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                                    KC_6,    KC_7,       KC_8,    KC_9,    KC_0,    KC_EQL,
+  KC_TAB,   KC_B,   KC_L,    KC_D,    KC_C,    KC_V,                                    KC_J,    KC_Y,       KC_O,    KC_U,    KC_COMM, KC_MINS,
+  KC_LCTL,  KC_N,   KC_R,    KC_T,    KC_S,    KC_G,                                    KC_P,    KC_H,       KC_A,    KC_E,    KC_I,    KC_TILD,
+  KC_LSFT,  KC_X,   KC_Q,    KC_M,    KC_W,    KC_Z,      MO(_RAISE),   MO(_SYMBOLS),   KC_K,    KC_F,       KC_QUOT, KC_SCLN, KC_DOT,  KC_RSFT,
+                             KC_LALT, KC_LGUI, KC_SCLN,   KC_ENT,       KC_SPC,         KC_BSPC, MO(_LOWER), KC_RGUI
+),
+
+[_SYMBOLS] = LAYOUT(
+  _______,  KC_LT,   KC_GT,   KC_MINS, KC_PIPE, KC_BSLS,                      KC_CIRC, KC_AT,   KC_AMPR, KC_DLR,  KC_RIGHT, KC_EQL,
+  _______,  KC_ASTR, KC_EXLM, KC_EQL,  KC_AMPR, KC_PERC,                      KC_HASH, KC_LPRN, KC_RPRN, KC_SCLN, KC_DQUO,  KC_QUES,
+  _______,  KC_PLUS, KC_UNDS, KC_LBRC, KC_RBRC, KC_AT,                        KC_GRV,  KC_LCBR, KC_RCBR, KC_QUOT, KC_PIPE,  KC_BSLS,
+  _______,  KC_QUES, KC_HASH, KC_TILD, KC_UNDS, KC_EQL,   _______, _______,   KC_SLSH, KC_BSLS, KC_COMM, KC_DOT,  KC_SLSH,  KC_PIPE,
+                     _______, _______, _______,           _______, _______,            _______, _______, _______
+),
+
+[_LOWER] = LAYOUT(
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_EQL,
+  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                             KC_7,    KC_8,    KC_9,    KC_O,    KC_P,    KC_MINS,
+  KC_LCTL,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                             KC_4,    KC_5,    KC_6,    KC_L,    KC_BSLS, KC_QUOT,
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, MO(_LOWER), MO(_SYMBOLS),   KC_1,    KC_2,    KC_3,    KC_DOT,  KC_SLSH, KC_RSFT,
+                    KC_LALT, KC_LGUI, MO(_RAISE),    KC_ENT,     KC_SPC,                  KC_SCLN, KC_BSPC, KC_RGUI
+),
+
+[_RAISE] = LAYOUT(
+  _______, _______, _______, _______, _______, _______,                     KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU,
+  KC_F1,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+  _______, KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
+  _______, KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   _______, _______,  KC_PLUS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+                             _______, _______, _______,  _______, _______,  _______, _______, _______
+),
+
+  [_ADJUST] = LAYOUT(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                             _______, _______, _______, _______, _______,  _______, _______, _______
+  )
+};
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return state;
+}
+
+const char *my_read_layer_state(void) {
+  switch (get_highest_layer(layer_state)) {
+    case _QWERTY:
+      return "Layer: QWERTY";
+    case _SYMBOLS:
+      return "Layer: SYMBOLS";
+    case _LOWER:
+      return "Layer: LOWER";
+    case _RAISE:
+      return "Layer: RAISE";
+    case _ADJUST:
+      return "Layer: ADJUST";
+    default:
+      return "Layer: ???";
+  }
+}
+
+//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+#ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (!is_keyboard_master())
+    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+  return rotation;
+}
+
+// When you add source files to SRC in rules.mk, you can use functions.
+const char *read_layer_state(void);
+const char *read_logo(void);
+void set_keylog(uint16_t keycode, keyrecord_t *record);
+const char *read_keylog(void);
+const char *read_keylogs(void);
+
+// const char *read_mode_icon(bool swap);
+// const char *read_host_led_state(void);
+// void set_timelog(void);
+// const char *read_timelog(void);
+
+bool oled_task_user(void) {
+  if (is_keyboard_master()) {
+    // If you want to change the display of OLED, you need to change here
+    oled_write_ln(my_read_layer_state(), false);
+    oled_write_ln(read_keylog(), false);
+    oled_write_ln(read_keylogs(), false);
+    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
+    //oled_write_ln(read_host_led_state(), false);
+    //oled_write_ln(read_timelog(), false);
+  } else {
+    oled_write(read_logo(), false);
+  }
+    return false;
+}
+#endif // OLED_ENABLE
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef OLED_ENABLE
+  if (record->event.pressed) {
+    set_keylog(keycode, record);
+  }
+#endif
+  return true;  // Let QMK handle all keycodes normally
+}
